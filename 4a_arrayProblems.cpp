@@ -4,7 +4,6 @@
 using namespace std;
 #define MAX 500
 
-
 /*void printArr(int arr[], int size)
 {
 
@@ -72,7 +71,6 @@ int main()
         cout << "element not found\n";
     }
 }*/
-
 
 /*// reverse an array
 void reverseArr(int arr[], int n)
@@ -494,10 +492,64 @@ int main()
     facto(5);
     return 0;
 }
+
+// merge 2 sorted arrays
+void solve(int arr1[], int arr2[], int n, int m, int sol[])
+{
+
+    int k = 0;
+    int i = 0, j = 0;
+    while (i < n && j < m)
+    {
+
+        if (arr1[i] > arr2[j])
+        {
+            sol[k] = arr2[j];
+            j++;
+            k++;
+        }
+        else
+        {
+            sol[k] = arr1[i];
+            i++;
+            k++;
+        }
+    }
+    while (i < n)
+    {
+        sol[k] = arr1[i];
+        i++;
+        k++;
+    }
+    while (j < m)
+    {
+        sol[k] = arr2[j];
+        j++;
+        k++;
+    }
+}
+
+int main()
+{
+    int arr1[] = {3, 5, 7, 9};
+    int arr2[] = {2, 4, 6};
+    int n = 4, m = 3;
+    int sol[n + m];
+
+    solve(arr1, arr2, n, m, sol);
+
+    for (int k = 0; k < n + m; k++)
+    {
+        cout << sol[k] << " ";
+    }
+
+    return 0;
+}
+
 */
-// minimun swap required to sort array less than k
-// This is a type of slidimg window question
-int minSwap(int arr[], int size, int k)
+    // minimun swap required to sort array less than k
+    // This is a type of slidimg window question
+    int minSwap(int arr[], int size, int k)
 {
     // finding the no of elemts greater than k
     int count = 0;

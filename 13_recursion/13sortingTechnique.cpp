@@ -94,6 +94,7 @@ int main()
 
 /********************************************************************* COUNT INVERSIONS **************************************************************************/
 // No of inversion most important ==>line no 97 & 112 are important for this
+
 int inversions = 0; // global variables
 void merge(vector<int> &arr, int low, int mid, int high)
 {

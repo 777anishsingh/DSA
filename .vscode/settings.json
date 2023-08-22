@@ -3,6 +3,8 @@
     "files.associations": {
         "*.tcc": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
-    }
+        "iostream": "cpp",
+        "new": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
 }

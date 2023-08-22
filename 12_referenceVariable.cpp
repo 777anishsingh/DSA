@@ -13,6 +13,11 @@ int main()
     // j++;
     // cout << i << endl;
 
+    // ****************************************************************dynamically created and inputed varibale***************8*********************************************
+    // int *ptr = new int;
+    // cin >> *ptr;
+    // cout << "The value of ptr stored in heap -> " << *ptr << endl;
+
     // // ***************************************************************dynamic 1-D array**************************************************************
     // int n;
     // cout << "enter the value of n " << endl;

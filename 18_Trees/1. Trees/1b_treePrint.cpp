@@ -45,22 +45,19 @@ void levelOrderTraversal(node *root)
 {
     queue<node *> q;
     q.push(root);
-    q.push(NULL);
+    q.push(NULL); // used as marker for levelwise printing of the tree
 
-    while (!q.empty())
+    while (q.size()>1)
     {
         // A     
         node *temp = q.front();
         // B
         q.pop();
 
-        if (temp == NULL)
+        if (temp == NULL) // checking to make it level
         {
             cout << endl;
-            if (!q.empty())
-            {
-                q.push(NULL);
-            }
+            q.push(NULL);
         }
         else
         {

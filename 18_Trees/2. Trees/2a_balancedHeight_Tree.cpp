@@ -45,16 +45,16 @@ void levelOrderTraversal(node *root)
 {
     queue<node *> q;
     q.push(root);
-    q.push(NULL); // used as marker for levelwise printing of the tree
+    q.push(NULL);
 
     while (!q.empty())
     {
-        // A     
+        // A
         node *temp = q.front();
         // B
         q.pop();
 
-        if (temp == NULL) // checking to make it level
+        if (temp == NULL)
         {
             cout << endl;
             if (!q.empty())
@@ -75,6 +75,30 @@ void levelOrderTraversal(node *root)
     }
 }
 
+int heightOfTree(node *root)
+{
+    if (root == 0)
+        return 0;
+
+    return max(heightOfTree(root->left), heightOfTree(root->right)) + 1;
+}
+
+bool isBalancedBT(node* root){
+    if(root==NULL)
+        return true;
+    
+    int LH=heightOfTree(root->left);
+    int RH=heightOfTree(root->right);
+    int diff=abs(LH-RH);
+
+    bool currNode=(diff<=1);//current node
+    bool leftAns=isBalancedBT(root->left);
+    bool rightAns=isBalancedBT(root->right);
+
+    return (currNode&&leftAns&&rightAns);
+
+}
+
 int main()
 {
 
@@ -82,6 +106,8 @@ int main()
     root = buildTree();
 
     levelOrderTraversal(root);
+
+    cout << "is it Balanced ? -> " << isBalancedBT(root) << endl;
 
     return 0;
 }

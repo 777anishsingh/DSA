@@ -57,7 +57,10 @@ void levelOrderTraversal(node *root)
         if (temp == NULL) // checking to make it level
         {
             cout << endl;
-            q.push(NULL);
+            if (!q.empty())
+            {
+                q.push(NULL);
+            }
         }
         else
         {

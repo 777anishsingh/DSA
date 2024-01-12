@@ -62,9 +62,9 @@ void levelOrderTraversal(node *root)
         {
             cout << temp->data << " ";
             if (temp->left)
-                levelOrderTraversal(temp->left);
+                q.push(temp->left);
             if (temp->right)
-                levelOrderTraversal(temp->right);
+                q.push(temp->right);
         }
     }
 }

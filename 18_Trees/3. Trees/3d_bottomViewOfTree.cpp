@@ -11,30 +11,28 @@ public:
     node(int data)
     {
         this->data = data;
-        left = NULL;
-        right = NULL;
+        this->left = NULL;
+        this->right = NULL;
     }
 };
 
 node *buildTree()
 {
+
     int data;
-    cout << "Enter the data - " << endl;
+    cout << "Enter the data " << endl;
     cin >> data;
 
     if (data == -1)
+    {
         return NULL;
+    }
 
-    // step1
     node *root = new node(data);
 
-    // step2
-    // input for other ends of tree
     cout << "Enter data for left part " << data << " node " << endl;
     root->left = buildTree();
 
-    // step3
-    // input for other ends of tree
     cout << "Enter data for right part " << data << " node " << endl;
     root->right = buildTree();
 
@@ -49,9 +47,7 @@ void levelOrderTraversal(node *root)
 
     while (!q.empty())
     {
-        // A
         node *temp = q.front();
-        // B
         q.pop();
 
         if (temp == NULL)
@@ -64,9 +60,7 @@ void levelOrderTraversal(node *root)
         }
         else
         {
-            // C
             cout << temp->data << " ";
-            // D
             if (temp->left)
                 q.push(temp->left);
             if (temp->right)
@@ -75,36 +69,43 @@ void levelOrderTraversal(node *root)
     }
 }
 
-int heightOfTree(node *root)
+void bottomViewTraversal(node *root)
 {
-    if (root == 0)
-        return 0;
+    map<int, int> hdtoMap;
+    queue<pair<node *, int>> q;
+    q.push(make_pair(root, 0));
 
-    return max(heightOfTree(root->left), heightOfTree(root->right)) + 1;
+    while (!q.empty())
+    {
+        pair<node *, int> temp = q.front();
+        q.pop();
+
+        node *frontNode = temp.first;
+        int hd = temp.second;
+
+        // Allow overwriting of the map values
+
+            hdtoMap[hd] = frontNode->data;
+
+        // child ko dekhna h
+        if (frontNode->left != NULL)
+            q.push(make_pair(frontNode->left, hd - 1));
+        if (frontNode->right != NULL)
+            q.push(make_pair(frontNode->right, hd + 1));
+    }
+    cout << "printing the bottom view " << endl;
+    for (auto i : hdtoMap)
+    {
+        cout << i.second << " ";
+    }
 }
-
-int diameterOfBinaryTree(node *root)
-{
-    if (root == 0)
-        return 0;
-
-    int op1 = diameterOfBinaryTree(root->left);
-    int op2 = diameterOfBinaryTree(root->right);
-    int op3 = heightOfTree(root->left) + heightOfTree(root->right);
-
-    return max(op1,max(op2,op3));
-}
-
 
 int main()
 {
-
-    node *root = NULL;
-    root = buildTree();
-
+    node *root = buildTree();
     levelOrderTraversal(root);
-
-    cout << "Diameter is -> " << diameterOfBinaryTree(root) << endl;
+    cout << endl;
+    bottomViewTraversal(root);
 
     return 0;
 }

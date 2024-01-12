@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+int D = 0;
 class node
 {
 public:
@@ -75,32 +75,28 @@ void levelOrderTraversal(node *root)
     }
 }
 
-int heightOfTree(node *root)
+int height(node *root)
 {
-    if (root == 0)
+    if (root == NULL)
         return 0;
 
-    return max(heightOfTree(root->left), heightOfTree(root->right)) + 1;
+    int lh = height(root->left);
+    int rh = height(root->right);
+    int currD = lh + rh;
+    D = max(D, currD);
+    return max(lh, rh) + 1;
 }
-
 int diameterOfBinaryTree(node *root)
 {
-    if (root == 0)
-        return 0;
+    height(root);
 
-    int op1 = diameterOfBinaryTree(root->left);
-    int op2 = diameterOfBinaryTree(root->right);
-    int op3 = heightOfTree(root->left) + heightOfTree(root->right);
-
-    return max(op1,max(op2,op3));
+    return D;
 }
-
 
 int main()
 {
 
-    node *root = NULL;
-    root = buildTree();
+    node *root = buildTree();
 
     levelOrderTraversal(root);
 

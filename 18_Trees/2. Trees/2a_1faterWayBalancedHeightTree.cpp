@@ -75,26 +75,24 @@ void levelOrderTraversal(node *root)
     }
 }
 
-int heightOfTree(node *root)
-{
-    if (root == 0)
-        return 0;
+bool isbalanced = true;
+    int height(node* root){
+        if(!root) return 0;
+        
+        int lh=height(root->left);
+        int rh=height(root->right);
 
-    return max(heightOfTree(root->left), heightOfTree(root->right)) + 1;
-}
+        if(isbalanced && abs(lh-rh)>1){
+            isbalanced=false;
+        }
+        return max(lh,rh)+1;
+    }
 
-int diameterOfBinaryTree(node *root)
-{
-    if (root == 0)
-        return 0;
 
-    int op1 = diameterOfBinaryTree(root->left);
-    int op2 = diameterOfBinaryTree(root->right);
-    int op3 = heightOfTree(root->left) + heightOfTree(root->right);
-
-    return max(op1,max(op2,op3));
-}
-
+    bool isBalanced(node* root) {
+        height(root);
+        return isbalanced;
+    }
 
 int main()
 {
@@ -104,7 +102,7 @@ int main()
 
     levelOrderTraversal(root);
 
-    cout << "Diameter is -> " << diameterOfBinaryTree(root) << endl;
+    cout << "is it Balanced ? -> " << isBalanced(root) << endl;
 
     return 0;
 }

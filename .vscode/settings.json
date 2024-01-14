@@ -1,10 +1,7 @@
 {
-    "liveServer.settings.port": 5501,
     "files.associations": {
-        "*.tcc": "cpp",
-        "ostream": "cpp",
         "iostream": "cpp",
-        "new": "cpp"
-    },
-    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
+        "ostream": "cpp",
+        "*.tcc": "cpp"
+    }
 }

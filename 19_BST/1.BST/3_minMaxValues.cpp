@@ -85,11 +85,42 @@ void levelOrderTraversal(node *&root)
     }
 }
 
+node* minValue(node* root){
+    if(root==NULL){
+        cout<<"No Node Present ";
+    }
+
+    node* temp=root;
+    while(temp->left){
+        temp=temp->left;
+    }
+    return temp;
+}
+
+node* maxValue(node* root){
+    if(root==NULL){
+        cout<<"No Node Present ";
+    }
+
+    node* temp=root;
+    while(temp->right){
+        temp=temp->right;
+    }
+    return temp;
+}
+
 int main()
 {
 
     node *root = NULL;
     buildBST(root);
     levelOrderTraversal(root);
+
+    node* minimumValue=minValue(root);
+    cout<<"The Minimum Value is: "<<minimumValue->data<<endl;
+
+    node* MaximumValue=maxValue(root);
+    cout<<"The Maximum Value is: "<<MaximumValue->data;
+
     return 0;
 }

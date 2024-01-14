@@ -40,56 +40,60 @@ node *insertIntoBST(node *&root, int data)
 
 void buildBST(node *&root)
 {
-    cout << "Enter the Node data ";
+    cout << "Enter the Node data: ";
     int data;
     cin >> data;
 
     while (data != -1)
     {
         root = insertIntoBST(root, data);
-        cout << "Enter the Node data ";
+        cout << "Enter the Node data: ";
         cin >> data;
     }
 }
 
-void levelOrderTraversal(node *&root)
-{
-    if (root == NULL)
-        return;
-
-    queue<node *> q;
-    q.push(root);
-    q.push(NULL);
-
-    while (!q.empty())
-    {
-        node *temp = q.front();
-        q.pop();
-
-        if (temp == NULL)
-        {
-            cout << endl;
-            if (!q.empty())
-            {
-                q.push(NULL);
-            }
-        }
-        else
-        {
-            cout << temp->data << " ";
-            if (temp->left)
-                q.push(temp->left);
-            if (temp->right)
-                q.push(temp->right);
-        }
-    }
+void inOrderTraversal(node* root){
+    if(root==NULL) return;
+//LNR
+    inOrderTraversal(root->left);
+    cout<< root->data<<" ";
+    inOrderTraversal(root->right);
 }
+
+void preOrderTraversal(node* root){
+    if(root==NULL) return;
+//NLR
+    cout<< root->data<<" ";
+    preOrderTraversal(root->left);
+    preOrderTraversal(root->right);
+}
+
+void postOrderTraversal(node* root){
+    if(root==NULL) return;
+//LRN
+    postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
+    cout<< root->data<<" ";
+}
+
 
 int main()
 {
 
     node *root = NULL;
     buildBST(root);
-    levelOrderTraversal(root);
+
+    cout<<"Inorder: ";
+    inOrderTraversal(root);
+    cout<<endl;
+
+    cout<<"Preorder: ";
+    preOrderTraversal(root);
+    cout<<endl;
+
+    cout<<"Postorder: ";
+    postOrderTraversal(root);
+    cout<<endl;
+     
     return 0;
 }

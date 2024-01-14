@@ -40,14 +40,14 @@ node *insertIntoBST(node *&root, int data)
 
 void buildBST(node *&root)
 {
-    cout << "Enter the Node data ";
+    cout << "Enter the Node data: ";
     int data;
     cin >> data;
 
     while (data != -1)
     {
         root = insertIntoBST(root, data);
-        cout << "Enter the Node data ";
+        cout << "Enter the Node data " << endl;
         cin >> data;
     }
 }
@@ -85,11 +85,45 @@ void levelOrderTraversal(node *&root)
     }
 }
 
+int kthSmallest(node *root, int &k)
+{
+    if (root == NULL)
+        return -1;
+
+    // LNR
+    // L
+    int leftAns = kthSmallest(root->left, k);
+    if (leftAns != -1)
+        return leftAns;
+    // N
+    k--;
+    if (k == 0)
+    {
+        return root->data;
+    }
+    // R
+    int rightAns = kthSmallest(root->right, k);
+    return rightAns;
+}
+
 int main()
 {
 
     node *root = NULL;
     buildBST(root);
+
     levelOrderTraversal(root);
+    cout<<endl;
+
+    int k;
+    cout<<"Enter the value of k:  ";
+    cin>>k;
+
+    while(k!=-1){
+        cout<<"The Value of Kth smallest node is = "<<kthSmallest(root,k)<<endl;
+        cout<<endl<<"Enter the value of k:  ";
+        cin>>k;
+    }
+
     return 0;
 }

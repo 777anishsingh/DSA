@@ -40,14 +40,14 @@ node *insertIntoBST(node *&root, int data)
 
 void buildBST(node *&root)
 {
-    cout << "Enter the Node data ";
+    cout << "Enter the Node data: ";
     int data;
     cin >> data;
 
     while (data != -1)
     {
         root = insertIntoBST(root, data);
-        cout << "Enter the Node data ";
+        cout << "Enter the Node data " << endl;
         cin >> data;
     }
 }
@@ -85,11 +85,35 @@ void levelOrderTraversal(node *&root)
     }
 }
 
+node* BSTFromInorder(vector<int> inorder, int start, int end){
+    if(start>end) return NULL;
+
+    //ek case solve kro
+    int mid = (start+end)/2;
+    int element = inorder[mid];
+
+    //1 case solve krna hai
+    node* root = new node(element);
+
+    //baki recursion sambhal lega
+    root->left = BSTFromInorder(inorder, start, mid-1);
+    root->right = BSTFromInorder(inorder, mid+1, end);
+
+    return root;
+
+}
+
 int main()
 {
 
-    node *root = NULL;
-    buildBST(root);
+    vector<int> inorder={10,20,30,40,50,60,70};
+    int start = 0;
+    int end = inorder.size()-1;
+
+    node* root = BSTFromInorder(inorder, start, end);
+
+    cout<<"The BST from the Inorder Traversal is: "<<endl;
     levelOrderTraversal(root);
+
     return 0;
 }

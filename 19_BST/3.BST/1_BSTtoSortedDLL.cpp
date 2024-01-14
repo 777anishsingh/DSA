@@ -40,14 +40,14 @@ node *insertIntoBST(node *&root, int data)
 
 void buildBST(node *&root)
 {
-    cout << "Enter the Node data ";
+    cout << "Enter the Node data: ";
     int data;
     cin >> data;
 
     while (data != -1)
     {
         root = insertIntoBST(root, data);
-        cout << "Enter the Node data ";
+        cout << "Enter the Node data " << endl;
         cin >> data;
     }
 }
@@ -84,12 +84,47 @@ void levelOrderTraversal(node *&root)
         }
     }
 }
+void convertBSTtoDDL(node* root, node* &head)
+{
+    if (root == NULL) return;
+
+    // RNL
+    // right = next ptr
+    // left = prev ptr
+
+    // R
+    convertBSTtoDDL(root->right, head);
+    // N
+    root->right = head;
+    if (head)
+        head->left = root;
+    head = root;
+    // L
+    convertBSTtoDDL(root->left, head);
+}
+
+void printLL(node* head){
+    node* temp = head;
+    cout<<"Printing the entire LL: "<<endl;
+    while(temp){
+        cout<<temp->data<<" <-> ";
+        temp=temp->right;
+    }
+    cout<<"NULL";
+}
 
 int main()
 {
 
     node *root = NULL;
     buildBST(root);
+
     levelOrderTraversal(root);
+    node*head=NULL;
+
+    convertBSTtoDDL(root,head);
+
+    printLL(head);
+
     return 0;
 }

@@ -85,11 +85,51 @@ void levelOrderTraversal(node *&root)
     }
 }
 
+
+
+bool searchInBST(node *root, int target)
+{
+    if (root == NULL)
+        return false;
+
+    // agr root->data hi target ke qual ho
+    if (root->data == target)
+        return true;
+    if (root->data < target)
+    {
+        return searchInBST(root->right, target);
+    }
+    else
+    {
+        return searchInBST(root->left, target);
+    }
+}
+
 int main()
 {
 
     node *root = NULL;
     buildBST(root);
     levelOrderTraversal(root);
+
+    int target;
+    cout << "Enter The Target Value: ";
+    cin >> target;
+    while (target != -1)
+    {
+        bool isFound = searchInBST(root, target);
+
+        if (isFound==true)
+        {
+            cout << "= Found" << endl;
+        }
+        else
+        {
+            cout << "= Not Found" << endl;
+        }
+        cout<<"Enter The Target: ";
+        cin >> target;
+    }
+
     return 0;
 }

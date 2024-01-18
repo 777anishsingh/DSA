@@ -153,7 +153,6 @@ node *deleetionInBST(node *root, int target)
             // c -> delete the actual node
             root->left = deleetionInBST(root->left, maxi->data);
         }
-        
     }
     else if (root->data > target)
     {
@@ -162,6 +161,60 @@ node *deleetionInBST(node *root, int target)
     else
     {
         root->right = deleetionInBST(root->right, target);
+    }
+    return root;
+}
+
+//******************************************** BETTER APPROACH **************************************************
+node *deleteWithDiffApproach(node *root, int key)
+{
+    if (!root)
+        return 0;
+    if (root->data == key)
+    {
+
+        // leaf node
+        if (root->left == NULL && root->right == NULL)
+        {
+            delete root;
+            return 0;
+        }
+        else if (!root->left)
+        {
+            auto temp = root;
+            root = root->right;
+            delete temp;
+            return root;
+        }
+        else if (!root->right)
+        {
+            auto temp = root;
+            root = root->left;
+            delete temp;
+            return root;
+        }
+        else
+        {
+            // right sub tree ka min nikalo ya to left ke max ko nikalo
+            auto rScan = root->right;
+            while (rScan->left)
+            {
+                rScan = rScan->left;
+            }
+            rScan->left = root->left;
+            auto temp = root;
+            root = root->right;
+            delete temp;
+            return root;
+        }
+    }
+    else if (key > root->data)
+    {
+        root->right = deleteWithDiffApproach(root->right, key);
+    }
+    else
+    {
+        root->left = deleteWithDiffApproach(root->left, key);
     }
     return root;
 }
@@ -179,7 +232,7 @@ int main()
 
     while (target != -1)
     {
-        root = deleetionInBST(root, target);
+        root = deleteWithDiffApproach(root, target);
         cout << endl
              << "Printing the level Order Traversal: " << endl;
         levelOrderTraversal(root);

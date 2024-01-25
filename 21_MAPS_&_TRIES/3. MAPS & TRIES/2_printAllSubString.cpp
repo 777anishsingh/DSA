@@ -81,7 +81,7 @@ void findPrefixString(trieNode *root, string input, vector<string> &ans, string 
     // base case
     if (input.length() == 0)
     {
-        trieNode *lastChar = root; //it stores 'a' for input 'ca'
+        trieNode *lastChar = root; // it stores 'a' for input 'ca'
         storeString(lastChar, ans, input, prefix);
         return;
     }
@@ -95,13 +95,47 @@ void findPrefixString(trieNode *root, string input, vector<string> &ans, string 
         child = root->children[index];
     }
     else
-    {   
-        cout<<"No Matching String Exist";
+    {
+        cout << "No Matching String Exist";
         return;
     }
 
     // recursion
     findPrefixString(child, input.substr(1), ans, prefix);
+}
+
+vector<vector<string>> getSuggestions(trieNode *root, string input)
+{
+        cout<<"1ewe"<<endl;
+
+    vector<vector<string>> output;
+    trieNode *prev = root;
+    string inputHelper = "";
+
+    for (int i = 0; i < input.length(); i++)
+    {
+        char lastChar = input[i];
+        int index = lastChar - 'a';
+        trieNode *curr = prev->children[index];
+        cout<<"10"<<endl;
+
+        if (curr == NULL)
+        {        cout<<"1"<<endl;
+
+            break;
+        }
+        else
+        {
+            vector<string> bakiKaAns;
+            inputHelper.push_back(lastChar);
+            string dummy = "";
+            storeString(curr, bakiKaAns, inputHelper, dummy);
+            output.push_back(bakiKaAns);
+            prev = curr; // important
+        }
+        cout<<"1"<<endl;
+    }
+    return output;
 }
 
 int main()
@@ -119,18 +153,18 @@ int main()
     insertWord(root, "cat");
     insertWord(root, "car");
 
-    string input = "ca";
-    string prefix = input;
-    vector<string> ans;
+    vector<vector<string>> ans = getSuggestions(root, "loa");
 
-    findPrefixString(root, input, ans, prefix);
-
-    for (auto i : ans)
+    // print
+    for (int i = 0; i < ans.size(); i++)
     {
-        cout << i << " ";
+        cout << i << "->";
+        for (auto str : ans[i])
+        {
+            cout << str << ", ";
+        }
+        cout << endl;
     }
-
-    cout << endl;
 
     return 0;
 }

@@ -78,34 +78,6 @@ bool searchWord(trieNode *root, string word)
     return recursionAns;
 }
 
-void deleteNode(trieNode *root, string word)
-{
-    // base case
-    if (word.length() == 0)
-    {
-        root->isTerminal = false;
-        return;
-    }
-
-    // 1case
-    char ch = word[0];
-    int index = ch - 'a';
-    trieNode *child;
-
-    if (root->children[index] != NULL)
-    {
-        // present
-        child = root->children[index];
-    }
-    else
-    {
-        // not present
-        return;
-    }
-    // recursion
-    deleteNode(child, word.substr(1));
-}
-
 int main()
 {
 
@@ -139,24 +111,6 @@ int main()
 
         cout << "Enter the Word to be searched: " << endl;
         getline(cin, str);
-    }
-
-    cout << "Enter the Word to be deleted: " << endl;
-    string deleteWord;
-    getline(cin, deleteWord);
-    deleteNode(root, deleteWord);
-
-    cout << "After deletion" << endl;
-
-    cout << "Enter the Word to be searched after deletion: " << endl;
-    getline(cin, str);
-    if (searchWord(root, str))
-    {
-        cout << "Found" << endl;
-    }
-    else
-    {
-        cout << "Not Found" << endl;
     }
 
     return 0;

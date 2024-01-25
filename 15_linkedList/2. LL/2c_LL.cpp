@@ -166,7 +166,7 @@ void deleteFromPosition(node *&head, node *&tail, int &position)
     int length = getLength(head);
     if (position > length)
     {
-        cout << "Pleaseenter valid length" << endl;
+        cout << "Please enter valid length" << endl;
     }
 
     //*********************************************************** delete from tail*************************************************
@@ -253,7 +253,7 @@ int main()
     //*****************************deletion at any position***********************************
     int *position2 = new int; 
     cout << endl
-         << "Enter the Position to add new Data " << endl;
+         << "Enter the Position to delete data " << endl;
     cin >> *position2;
 
     deleteFromPosition(head, tail, *position2);

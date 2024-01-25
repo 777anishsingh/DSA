@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// CREATION CODE
 class trieNode
 {
 public:
@@ -19,7 +20,7 @@ public:
     }
 };
 
-// insertion
+// INSERTION CODE
 void insertWord(trieNode *root, string word)
 {
 
@@ -50,65 +51,62 @@ void insertWord(trieNode *root, string word)
     insertWord(child, word.substr(1)); // substr returnes charcetrs from index to end index = 1 in this case
 }
 
-bool searchWord(trieNode *root, string word)
+void storeString(trieNode *root, vector<string> &ans, string &input, string &prefix)
 {
     // base case
-    if (word.length() == 0)
+    if (root->isTerminal)
     {
-        return root->isTerminal;
+        // ans.store
+        ans.push_back(prefix + input);
     }
 
-    char ch = word[0];    // to be found
-    int index = ch - 'a'; // what index
-    trieNode *child;
-
-    if (root->children[index] != NULL)
+    for (char ch = 'a'; ch <= 'z'; ch++)
     {
-        // present or found
-        child = root->children[index];
+        int index = ch - 'a';
+        trieNode *next = root->children[index];
+        if (next != NULL)
+        {
+            // child exist
+            input.push_back(ch);
+            // baki recursion smbhal lega
+            storeString(next, ans, input, prefix);
+            // backtrack
+            input.pop_back();
+        }
     }
-    else
-    {
-        // not found
-        return false;
-    }
-
-    // baki recursion
-    bool recursionAns = searchWord(child, word.substr(1));
-    return recursionAns;
 }
 
-void deleteNode(trieNode *root, string word)
+void findPrefixString(trieNode *root, string input, vector<string> &ans, string &prefix)
 {
     // base case
-    if (word.length() == 0)
+    if (input.length() == 0)
     {
-        root->isTerminal = false;
+        trieNode *lastChar = root;
+        storeString(lastChar, ans, input, prefix);
         return;
     }
 
-    // 1case
-    char ch = word[0];
+    char ch = input[0];
     int index = ch - 'a';
     trieNode *child;
-
     if (root->children[index] != NULL)
     {
-        // present
+        // child present
         child = root->children[index];
     }
     else
-    {
-        // not present
+    {   
+        cout<<"No Matching String Exist";
         return;
     }
+
     // recursion
-    deleteNode(child, word.substr(1));
+    findPrefixString(child, input.substr(1), ans, prefix);
 }
 
 int main()
 {
-
+    // INSERTION CODE
     trieNode *root = new trieNode('-');
     insertWord(root, "cater");
     insertWord(root, "care");
@@ -121,43 +119,18 @@ int main()
     insertWord(root, "cat");
     insertWord(root, "car");
 
-    cout << "Insertion Done" << endl;
-    string str;
-    cout << "Enter the Word to be searched: " << endl;
-    getline(cin, str);
+    string input = "c";
+    string prefix = input;
+    vector<string> ans;
 
-    while (str != "-1")
+    findPrefixString(root, input, ans, prefix);
+
+    for (auto i : ans)
     {
-        if (searchWord(root, str))
-        {
-            cout << "Found" << endl;
-        }
-        else
-        {
-            cout << "Not Found" << endl;
-        }
-
-        cout << "Enter the Word to be searched: " << endl;
-        getline(cin, str);
+        cout << i << " ";
     }
 
-    cout << "Enter the Word to be deleted: " << endl;
-    string deleteWord;
-    getline(cin, deleteWord);
-    deleteNode(root, deleteWord);
-
-    cout << "After deletion" << endl;
-
-    cout << "Enter the Word to be searched after deletion: " << endl;
-    getline(cin, str);
-    if (searchWord(root, str))
-    {
-        cout << "Found" << endl;
-    }
-    else
-    {
-        cout << "Not Found" << endl;
-    }
+    cout << endl;
 
     return 0;
 }

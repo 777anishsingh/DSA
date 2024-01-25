@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// CREATION CODE
 class trieNode
 {
 public:
@@ -19,7 +20,7 @@ public:
     }
 };
 
-// insertion
+// INSERTION CODE
 void insertWord(trieNode *root, string word)
 {
 
@@ -50,6 +51,7 @@ void insertWord(trieNode *root, string word)
     insertWord(child, word.substr(1)); // substr returnes charcetrs from index to end index = 1 in this case
 }
 
+// SEARCHING CODE
 bool searchWord(trieNode *root, string word)
 {
     // base case
@@ -78,6 +80,7 @@ bool searchWord(trieNode *root, string word)
     return recursionAns;
 }
 
+// DELETION CODE
 void deleteNode(trieNode *root, string word)
 {
     // base case
@@ -108,7 +111,7 @@ void deleteNode(trieNode *root, string word)
 
 int main()
 {
-
+    // INSERTION CODE
     trieNode *root = new trieNode('-');
     insertWord(root, "cater");
     insertWord(root, "care");
@@ -122,6 +125,8 @@ int main()
     insertWord(root, "car");
 
     cout << "Insertion Done" << endl;
+
+    // SEARCHING CODE
     string str;
     cout << "Enter the Word to be searched: " << endl;
     getline(cin, str);
@@ -141,13 +146,12 @@ int main()
         getline(cin, str);
     }
 
+    // DELETION CODE
     cout << "Enter the Word to be deleted: " << endl;
     string deleteWord;
     getline(cin, deleteWord);
     deleteNode(root, deleteWord);
-
     cout << "After deletion" << endl;
-
     cout << "Enter the Word to be searched after deletion: " << endl;
     getline(cin, str);
     if (searchWord(root, str))

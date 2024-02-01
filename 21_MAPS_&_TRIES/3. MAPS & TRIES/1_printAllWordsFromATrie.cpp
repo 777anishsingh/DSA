@@ -30,7 +30,6 @@ void insertWord(trieNode *root, string word)
         root->isTerminal = true;
         return;
     }
-
     char ch = word[0];
     int index = ch - 'a';
     trieNode *child;
@@ -105,7 +104,7 @@ void findPrefixString(trieNode *root, string input, vector<string> &ans, string 
 }
 
 int main()
-{
+{   
     // INSERTION CODE
     trieNode *root = new trieNode('-');
     insertWord(root, "cater");

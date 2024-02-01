@@ -227,7 +227,7 @@ int main()
     levelOrderTraversal(root);
 
     int target;
-    cout << "Enter the value of the target: ";
+    cout << "Enter the value to be deleted: ";
     cin >> target;
 
     while (target != -1)
@@ -236,7 +236,7 @@ int main()
         cout << endl
              << "Printing the level Order Traversal: " << endl;
         levelOrderTraversal(root);
-        cout << "Rnter the value of Target: ";
+        cout << "Enter the value to be deleted: ";
         cin >> target;
     }
 

@@ -106,7 +106,6 @@ void findPrefixString(trieNode *root, string input, vector<string> &ans, string 
 
 vector<vector<string>> getSuggestions(trieNode *root, string input)
 {
-        cout<<"1ewe"<<endl;
 
     vector<vector<string>> output;
     trieNode *prev = root;
@@ -117,11 +116,9 @@ vector<vector<string>> getSuggestions(trieNode *root, string input)
         char lastChar = input[i];
         int index = lastChar - 'a';
         trieNode *curr = prev->children[index];
-        cout<<"10"<<endl;
 
         if (curr == NULL)
-        {        cout<<"1"<<endl;
-
+        { 
             break;
         }
         else
@@ -133,7 +130,6 @@ vector<vector<string>> getSuggestions(trieNode *root, string input)
             output.push_back(bakiKaAns);
             prev = curr; // important
         }
-        cout<<"1"<<endl;
     }
     return output;
 }
@@ -146,7 +142,7 @@ int main()
     insertWord(root, "care");
     insertWord(root, "com");
     insertWord(root, "lover");
-    insertWord(root, " loved");
+    insertWord(root, "loved");
     insertWord(root, "load");
     insertWord(root, "lov");
     insertWord(root, "bat");
